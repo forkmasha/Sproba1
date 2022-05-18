@@ -52,6 +52,14 @@ public class Book extends Item{
         return bookName;
     }
 
+    private int setPages(int pages) {
+        if (pages < 1) {
+            pages = 1;
+        }
+
+        return (this.pages = pages);
+    }
+
     @Override
     public String toString() {
         return "Book{" +

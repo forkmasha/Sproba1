@@ -13,7 +13,7 @@ public class Item {
         List<Book> listBook = booksFromfile();
 
         System.out.println(listBook);
-        System.out.println("*****************************888888");
+        System.out.println("****************************");
 
         listBook.get(0).setAuthorName("myAuthorName");
         listBook.get(0).setBookName("myBookName");
