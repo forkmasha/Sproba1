@@ -20,10 +20,12 @@ public class Console {
         }
 
     public void doLoop() throws IOException {
+        String confirm = "";
         Scanner sc=new Scanner(System.in);
 
-
-        for(int i = 0; i < 3; ++i){
+        System.out.println("Do you want to add the book? (yes/no)");
+        confirm=sc.nextLine();
+        if ("yes".equals(confirm)){
             System.out.println("Enter the Book name:");
             String bookName=sc.nextLine();
             System.out.println("Enter the book pages:");
@@ -40,9 +42,12 @@ public class Console {
             System.out.println("Author Name :"+obj.getAuthorName());
             System.out.println("Pages:"+obj.getPages());
             WriteInformation(obj);
-
-
-
+        }
+        else if("no".equals(confirm)){
+            System.out.println("Maybe you want choosing smth else");
+        }
+        else {
+            System.out.println("You write smth wrong. Please check your answer and try one more time");
         }
     }
 }
