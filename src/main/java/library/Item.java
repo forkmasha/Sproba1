@@ -8,6 +8,23 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Item {
+    protected int pages;
+
+    public int getPages() {
+        return pages;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+
+    /*public int setPages(int pages) {
+        if (pages < 1) {
+            pages = 1;
+        }
+    }
+    //return (this.pages = pages);
+    // } */
     public static void main(String args[]) {
 
         List<Book> listBook = booksFromfile();

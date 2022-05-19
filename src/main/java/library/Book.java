@@ -1,7 +1,6 @@
 package library;
 
 public class Book extends Item{
-    private int pages;
     private String authorName;
     private String publishingData;
     private String bookName;
@@ -20,9 +19,7 @@ public class Book extends Item{
          this.bookName ="default";
     }
 
-    public void setPages(Integer pages) {
-        this.pages = pages;
-    }
+
 
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
@@ -36,9 +33,6 @@ public class Book extends Item{
         this.bookName = bookName;
     }
 
-    public int getPages() {
-        return pages;
-    }
 
     public String getAuthorName() {
         return authorName;
@@ -52,13 +46,7 @@ public class Book extends Item{
         return bookName;
     }
 
-    private int setPages(int pages) {
-        if (pages < 1) {
-            pages = 1;
-        }
 
-        return (this.pages = pages);
-    }
 
     @Override
     public String toString() {
