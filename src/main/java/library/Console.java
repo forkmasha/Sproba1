@@ -22,7 +22,7 @@ public class Console {
         String filePath = "2.txt";
         File file = new File(filePath);
         BufferedWriter out = new BufferedWriter(new FileWriter(file, true));
-        out.write('\n' + obj.getMagName() + " " + obj.getPages() + " ");
+        out.write('\n' + obj.getMagName() + " " + obj.getPages());
         out.close();
     }
 
@@ -53,18 +53,24 @@ public class Console {
                 System.out.println("Maybe you want choosing smth else");
                 System.out.println("Do you want to add a magazine?(yes/no)");
                 confirm = sc.nextLine();
-                if ("yes".equals(confirm)) {
-                    System.out.println("Enter the magazine  name:");
-                    String MagName = sc.nextLine();
-                    System.out.println("Enter the magazine pages:");
-                    int pages = sc.nextInt();
-                    sc.nextLine();
-                    Magazine obj = new Magazine(pages, MagName);}
-
-                 else if ("no".equals(confirm)) {
-                        System.out.println("I do not add any functions. Sorry, but I cant help you");}
-                 break;
-
+                while (true) {
+                    if ("yes".equals(confirm)) {
+                        System.out.println("Enter the magazine name:");
+                        String MagName = sc.nextLine();
+                        System.out.println("Enter the magazine pages:");
+                        int pages = sc.nextInt();
+                        sc.nextLine();
+                        Magazine obj = new Magazine(pages, MagName);
+                        System.out.println("Magazine Details");
+                        System.out.println("Magazine Name :" + obj.getMagName());
+                        System.out.println("Pages:" + obj.getPages());
+                        WriteInformation(obj);
+                    } else if ("no".equals(confirm)) {
+                        System.out.println("I do not add any functions. Sorry, but I cant help you");
+                        break;
+                    }
+                }
+                break;
                 // else {
                    // System.out.println("You write smth wrong. Please check your answer and try one more time");
                // }

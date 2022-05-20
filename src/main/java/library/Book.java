@@ -19,8 +19,6 @@ public class Book extends Item{
          this.bookName ="default";
     }
 
-
-
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
     }
@@ -45,8 +43,6 @@ public class Book extends Item{
     public String getBookName() {
         return bookName;
     }
-
-
 
     @Override
     public String toString() {

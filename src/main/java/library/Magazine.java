@@ -4,7 +4,7 @@ public class Magazine extends Item {
     private String MagName;
 
     public Magazine(int pages, String magName) {
-        MagName = magName;
+        this.MagName = magName;
         this.pages = pages;
     }
 
@@ -24,4 +24,5 @@ public class Magazine extends Item {
         this.pages = pages;
     }
 }
+
 
