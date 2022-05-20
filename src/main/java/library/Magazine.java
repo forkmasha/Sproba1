@@ -3,8 +3,7 @@ package library;
 public class Magazine extends Item {
     private String MagName;
 
-
-    public Magazine(String magName, int pages) {
+    public Magazine(int pages, String magName) {
         MagName = magName;
         this.pages = pages;
     }
@@ -14,7 +13,7 @@ public class Magazine extends Item {
     }
 
     public void setMagName(String magName) {
-        MagName = magName;
+        this.MagName = magName;
     }
 
     public int getPages() {
