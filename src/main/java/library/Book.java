@@ -4,12 +4,14 @@ public class Book extends Item{
     private String authorName;
     private String publishingData;
     private String bookName;
+    private boolean isBorrowed;
 
-    public Book(int pages, String authorName, String publishingData, String bookName) {
+    public Book(int pages, String authorName, String publishingData, String bookName,boolean isBorrowed ) {
         this.pages = pages;
         this.authorName = authorName;
         this.publishingData = publishingData;
         this.bookName = bookName;
+        this.isBorrowed=isBorrowed;
     }
 
     public Book() {
@@ -31,6 +33,9 @@ public class Book extends Item{
         this.bookName = bookName;
     }
 
+    public void setBorrowed(boolean isBorrowed) {
+        this.isBorrowed = isBorrowed;
+    }
 
     public String getAuthorName() {
         return authorName;
@@ -42,6 +47,13 @@ public class Book extends Item{
 
     public String getBookName() {
         return bookName;
+    }
+
+    public String getBorrowed(){
+        if(isBorrowed){
+            return "yes";
+        }
+        return "no";
     }
 
     @Override

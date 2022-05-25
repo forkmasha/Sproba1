@@ -7,6 +7,7 @@ public class Console {
         Console console = new Console();
         console.doLoop();
         console.DeleteBook();
+        console.BorrowBook();
     }
 
 
@@ -15,7 +16,7 @@ public class Console {
         String filePath = "1.txt";
         File file = new File(filePath);
         BufferedWriter out = new BufferedWriter(new FileWriter(file, true));
-        out.write('\n' + obj.getBookName() + " " + obj.getPages() + " " + obj.getAuthorName() + " " + obj.getPublishingData());
+        out.write('\n' + obj.getBookName() + " " + obj.getPages() + " " + obj.getAuthorName() + " " + obj.getPublishingData() + " " + obj.getBorrowed());
         out.close();
     }
 
@@ -39,12 +40,17 @@ public class Console {
             text.append(" ");
         }
         words = text.toString().split(" ");
-        int count = words.length / 4;
+        int count = words.length / 5;
         int j = 0;
         for (int i = 0; i < count; ++i) {
             System.out.print(i + 1 + ") Book name: " + words[j++]);
             System.out.print(" Pages: " + words[j++] + " Author name: " + words[j++]);
             System.out.println(" Publishing Date: " + words[j++]);
+            System.out.print("Borrowed: ");
+            if(words[j++].equals("yes"))
+                System.out.println("yes");
+            else
+                System.out.println("no");
         }
         String confirm2 = "";
         while (true) {
@@ -59,17 +65,21 @@ public class Console {
                 int books = 0;
                 for (int i = 0; i < count; ++i) {
                     for (; j < words.length; ++j) {
-                        if (j % 4 == 0)
+                        if (j % 5 == 0)
                             book.setBookName(words[j]);
-                        else if (j % 4 == 1)
+                        else if (j % 5 == 1)
                             book.setPages(Integer.parseInt(words[j]));
-                        else if (j % 4 == 2)
+                        else if (j % 5 == 2)
                             book.setAuthorName(words[j]);
-                        else {
+                        else if(j % 5 == 3)
                             book.setPublishingData(words[j]);
+                        else{
+                            book.setBorrowed(words[j].equals("yes"));
                             ++books;
-                            if (books != choice)
-                                out.write(book.getBookName() + " " + book.getPages() + " " + book.getAuthorName() + " " + book.getPublishingData() + "\n");
+                            if (books != choice && books != count - 1)
+                                out.write(book.getBookName() + " " + book.getPages() + " " + book.getAuthorName() + " " + book.getPublishingData() + " " + book.getBorrowed() + "\n");
+                            else if(books != choice)
+                                out.write(book.getBookName() + " " + book.getPages() + " " + book.getAuthorName() + " " + book.getPublishingData() + " " + book.getBorrowed());
                         }
                     }
                 }
@@ -78,10 +88,70 @@ public class Console {
 
             } else if ("no".equals(confirm2)) {
                 System.out.println("Make your day better");
+                break;
             }
         }
     }
 
+    public void BorrowBook() throws IOException {
+        String filePath = "1.txt";
+        File file = new File(filePath);
+        Scanner scanner = new Scanner(file);
+        String[] words;
+        StringBuilder text = new StringBuilder();
+        while (scanner.hasNextLine()) {
+            text.append(scanner.nextLine());
+            text.append(" ");
+        }
+        words = text.toString().split(" ");
+        int count = words.length / 5;
+        int j = 0;
+        for (int i = 0; i < count; ++i) {
+            System.out.print(i + 1 + ") Book name: " + words[j++]);
+            System.out.print(" Pages: " + words[j++] + " Author name: " + words[j++]);
+            System.out.println(" Publishing Date: " + words[j++]);
+            System.out.print("Borrowed: ");
+            if(words[j++].equals("yes"))
+                System.out.println("yes");
+            else
+                System.out.println("no");
+        }
+        System.out.print("Select the book you want to borrow: ");
+        Scanner sc = new Scanner(System.in);
+        int choice = sc.nextInt();
+        BufferedWriter out = new BufferedWriter(new FileWriter(file));
+        Book book = new Book();
+        j = 0;
+        int books = 0;
+        for (int i = 0; i < count; ++i) {
+            for (; j < words.length; ++j) {
+                if (j % 5 == 0)
+                    book.setBookName(words[j]);
+                else if (j % 5 == 1)
+                    book.setPages(Integer.parseInt(words[j]));
+                else if (j % 5 == 2)
+                    book.setAuthorName(words[j]);
+                else if(j % 5 == 3)
+                    book.setPublishingData(words[j]);
+                else{
+                    book.setBorrowed(words[j].equals("yes"));
+                    ++books;
+                    if(books == choice && book.getBorrowed().equals("no")){
+                        book.setBorrowed(true);
+                    }
+                    else if(books == choice && book.getBorrowed().equals("yes")){
+                        System.out.println("The book has already been borrowed.");
+                    }
+                    if (books <= count - 1)
+                        out.write(book.getBookName() + " " + book.getPages() + " " + book.getAuthorName() + " " + book.getPublishingData() + " " + book.getBorrowed() + "\n");
+                    else if(books >= count)
+                        out.write(book.getBookName() + " " + book.getPages() + " " + book.getAuthorName() + " " + book.getPublishingData() + " " + book.getBorrowed());
+                }
+            }
+        }
+
+        out.close();
+    }
     public void doLoop() throws IOException {
         String confirm = "";
         while (true) {
@@ -98,44 +168,50 @@ public class Console {
                 String authorName = sc.nextLine();
                 System.out.println("Enter the Publishing Date:");
                 String publishingData = sc.nextLine();
-                Book obj = new Book(pages, authorName, publishingData, bookName);
-
+                System.out.println("Enter the borrowed book:");
+                String isBorrowed = sc.nextLine();
+                boolean borrowed = false;
+                if(isBorrowed.equals("yes"))
+                    borrowed = true;
+                Book obj = new Book(pages, authorName, publishingData, bookName, borrowed);
                 System.out.println("Book Details");
                 System.out.println("Book Name :" + obj.getBookName());
                 System.out.println("Author Name :" + obj.getAuthorName());
                 System.out.println("Pages:" + obj.getPages());
+                System.out.println("Publishing Data:" + obj.getPublishingData());
+                System.out.println("Borrowed: " + obj.getBorrowed());
                 WriteInformation(obj);
             } else if ("no".equals(confirm)) {
                 System.out.println("Maybe you want choosing smth else");
             }
-                String confirm1 = "";
+            String confirm1 = "";
 
-                while (true) {
+            while (true) {
 
-                    System.out.println("Do you want to add a magazine?(yes/no)");
-                    confirm1 = sc.nextLine();
-                    if ("yes".equals(confirm1)) {
-                        System.out.println("Enter the magazine name:");
-                        String MagName = sc.nextLine();
-                        System.out.println("Enter the magazine pages:");
-                        int pages = sc.nextInt();
-                        sc.nextLine();
-                        Magazine obj = new Magazine(pages, MagName);
-                        System.out.println("Magazine Details");
-                        System.out.println("Magazine Name :" + obj.getMagName());
-                        System.out.println("Pages:" + obj.getPages());
-                        WriteInformation(obj);
-                        break;
-                        }
-                    else if ("no".equals(confirm1)) {
-                            System.out.println("Maybe you want to delete the book?");
-                            break;
-                        }
-                    }
+                System.out.println("Do you want to add a magazine?(yes/no)");
+                confirm1 = sc.nextLine();
+                if ("yes".equals(confirm1)) {
+                    System.out.println("Enter the magazine name:");
+                    String MagName = sc.nextLine();
+                    System.out.println("Enter the magazine pages:");
+                    int pages = sc.nextInt();
+                    sc.nextLine();
+                    Magazine obj = new Magazine(pages, MagName);
+                    System.out.println("Magazine Details");
+                    System.out.println("Magazine Name :" + obj.getMagName());
+                    System.out.println("Pages:" + obj.getPages());
+                    WriteInformation(obj);
                     break;
-                    // else {
-                    // System.out.println("You write smth wrong. Please check your answer and try one more time");
-                    // }
+                }
+                else if ("no".equals(confirm1)) {
+                    System.out.println("Maybe you want to delete the book?");
+                    break;
+                }
             }
+            break;
+            // else {
+            // System.out.println("You write smth wrong. Please check your answer and try one more time");
+            // }
         }
     }
+}
