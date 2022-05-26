@@ -1,3 +1,0 @@
-nasta 121 petia 121212 no
-111 1 11 no no
-nnn 111 bbbb 11111 yes

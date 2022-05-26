@@ -1,19 +1,19 @@
 package library;
 
 public class Magazine extends Item {
-    private String MagName;
+    private String MagazineName;
 
-    public Magazine(int pages, String magName) {
-        this.MagName = magName;
+    public Magazine(int pages, String magazineName) {
+        this.MagazineName = magazineName;
         this.pages = pages;
     }
 
-    public String getMagName() {
-        return MagName;
+    public String getMagazineName() {
+        return MagazineName;
     }
 
-    public void setMagName(String magName) {
-        this.MagName = magName;
+    public void setMagazineName(String magazineName) {
+        this.MagazineName = magazineName;
     }
 
     public int getPages() {
