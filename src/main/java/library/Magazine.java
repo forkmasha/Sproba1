@@ -23,6 +23,14 @@ public class Magazine extends Item {
     public void setPages(int pages) {
         this.pages = pages;
     }
+
+    @Override
+    public String toString() {
+        return "Magazine{" +
+                "pages=" + pages +
+                ", MagazineName='" + MagazineName + '\'' +
+                '}';
+    }
 }
 
 
