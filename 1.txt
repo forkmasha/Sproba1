@@ -1,2 +1,4 @@
-Peter 111 Poplavski 12.09.2009 no
+Peter 111 Poplavski 12.09.2009 yes
 Star 1 Milka 12.03.2002 no
+milka 1 Harry 12.02.2002 no
+Molenka 234 Ister 23.03.2009 no

@@ -1,19 +1,32 @@
 package library;
 
 public class Magazine extends Item {
-    private String MagazineName;
+    private String MagName;
+    private boolean isBorrowed;
 
-    public Magazine(int pages, String magazineName) {
-        this.MagazineName = magazineName;
+    public Magazine(int pages, String magName,boolean isBorrowed) {
+        this.MagName = magName;
         this.pages = pages;
+        this.isBorrowed = isBorrowed;
+    }
+
+    public Magazine(Magazine magazine) {
+        this.pages = magazine.getPages();
+        this.MagName = magazine.getMagazineName();
+        this.isBorrowed = "yes".equals(magazine.getBorrowed());
+    }
+    public Magazine(){
+        this.MagName = "default";
+        this.pages = 0;
+        this.isBorrowed = false;
     }
 
     public String getMagazineName() {
-        return MagazineName;
+        return MagName;
     }
 
-    public void setMagazineName(String magazineName) {
-        this.MagazineName = magazineName;
+    public void setMagName(String magName) {
+        this.MagName = magName;
     }
 
     public int getPages() {
@@ -23,14 +36,14 @@ public class Magazine extends Item {
     public void setPages(int pages) {
         this.pages = pages;
     }
-
-    @Override
-    public String toString() {
-        return "Magazine{" +
-                "pages=" + pages +
-                ", MagazineName='" + MagazineName + '\'' +
-                '}';
+    public void setBorrowed(boolean isBorrowed) {
+        this.isBorrowed = isBorrowed;
     }
+    public String getBorrowed() {
+        if (isBorrowed) {
+            return "yes";
+        }
+        return "no";
+    }
+
 }
-
-

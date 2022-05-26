@@ -6,14 +6,11 @@ import java.util.Scanner;
 
 public class Console {
     public static void main(String[] args) throws IOException {
-
         Scanner scan = new Scanner(System.in);
         int x = 0;
         String s = "";
-
         Console console = new Console();
         System.out.println("Welcome to my library");
-
         while (true) {
             while (!"5".equals(s)) {
                 System.out.println("1. If you want to add smth please click 1");
@@ -22,13 +19,11 @@ public class Console {
                 System.out.println("4. If you want ro sort smth enter 4");
                 System.out.println("5.If you want to Exit please click 5");
                 s = scan.next();
-
                 try {
                     x = Integer.parseInt(s);
                 } catch (NumberFormatException e) {
                     System.out.println("You Write smth wrong");
                 }
-
                 switch (x) {
                     case 1:
                         console.addLoop();
@@ -48,17 +43,13 @@ public class Console {
             break;
         }
     }
-
-
     private static void WriteInformation(Book obj) throws IOException {
-
         String filePath = "1.txt";
         File file = new File(filePath);
         BufferedWriter out = new BufferedWriter(new FileWriter(file, true));
         out.write(obj.getBookName() + " " + obj.getPages() + " " + obj.getAuthorName() + " " + obj.getPublishingData() + " " + obj.getBorrowed() + '\n');
         out.close();
     }
-
     private static void PrintBook(Book[] books, int length){
         for(int i = 0; i < length; ++i){
             System.out.print(i + 1 + ") Book name: " + books[i].getBookName());
@@ -71,25 +62,35 @@ public class Console {
                 System.out.println("no");
         }
     }
-    private static void WriteInformation(Magazine obj) throws IOException {
 
+    private static void PrintMagazine(Magazine[] magazines, int length){
+        for(int i = 0; i < length; ++i){
+            System.out.print(i + 1 + ") Magazine name: " + magazines[i].getMagazineName());
+            System.out.print(" Pages: " + magazines[i].getPages() );
+            System.out.print("Borrowed: ");
+            if (magazines[i].getBorrowed().equals("yes"))
+                System.out.println("yes");
+            else
+                System.out.println("no");
+        }
+    }
+    private static void WriteInformation(Magazine obj) throws IOException {
         String filePath = "2.txt";
         File file = new File(filePath);
         BufferedWriter out = new BufferedWriter(new FileWriter(file, true));
-        out.write('\n' + obj.getMagazineName() + " " + obj.getPages());
+        out.write(obj.getMagazineName() + " " + obj.getPages() + '\n');
         out.close();
     }
-
     private void DeleteBook() throws IOException {
         String confirm = "";
         Scanner sc = new Scanner(System.in);
         System.out.println("1.If you want to delete the book enter 1" + "\n" + "2.If you want to delete the magazine enter 2");
         confirm = sc.nextLine();
+        String confirm2 = "";
+        Scanner sc1 = new Scanner(System.in);
         if ("1".equals(confirm)) {
             System.out.println("Do you want to delete the book?(yes/no)");
-            String confirm2 = "";
             while (true) {
-                Scanner sc1 = new Scanner(System.in);
                 confirm2 = sc1.nextLine();
                 if ("yes".equals(confirm2)) {
                     String filePath = "1.txt";
@@ -105,7 +106,7 @@ public class Console {
                     int count = words.length / 5;
                     int j = 0;
                     Book[] books = new Book[count];
-                    for(int i = 0; i < count; ++i){
+                    for (int i = 0; i < count; ++i) {
                         books[i] = new Book();
                     }
                     for (int i = 0; i < count; ++i) {
@@ -120,22 +121,54 @@ public class Console {
                     int choice = sc1.nextInt();
                     BufferedWriter out = new BufferedWriter(new FileWriter(file));
                     for (int i = 0; i < count; ++i) {
-                        if(choice != i + 1){
+                        if (choice != i + 1) {
                             out.write(books[i].getBookName() + " " + books[i].getPages() + " " + books[i].getAuthorName() + " " + books[i].getPublishingData() + " " + books[i].getBorrowed() + "\n");
                         }
                     }
                     out.close();
                     break;
                 }
-                else if ("2".equals(confirm2)) {
-                    System.out.println("This function is not available now. Sorry");
-
-                    break;
+            }
+        }
+        else if ("2".equals(confirm)) {
+            System.out.println("Do you want to delete the magazine?(yes/no)");
+            confirm2 = sc1.nextLine();
+            if ("yes".equals(confirm2)) {
+                String filePath = "2.txt";
+                File file = new File(filePath);
+                Scanner scanner = new Scanner(file);
+                String[] words;
+                StringBuilder text = new StringBuilder();
+                while (scanner.hasNextLine()) {
+                    text.append(scanner.nextLine());
+                    text.append(" ");
                 }
+                words = text.toString().split(" ");
+                int count = words.length / 2;
+                int j = 0;
+                Magazine[] magazine = new Magazine[count];
+                for(int i = 0; i < count; ++i){
+                    magazine[i] = new Magazine();
+                }
+                for(int i = 0; i < count; ++i){
+                    magazine[i].setMagName(words[j++]);
+                    magazine[i].setPages(Integer.parseInt(words[j++]));
+                }
+                for(int i = 0; i < count; ++i){
+                    System.out.println(i + 1 + ") Magazine name: " + magazine[i].getMagazineName() + ". Pages: " + magazine[i].getPages());
+                }
+                System.out.print("Please select the magazine you want to delete: ");
+                int choice = sc1.nextInt();
+                BufferedWriter out = new BufferedWriter(new FileWriter(file));
+                for (int i = 0; i < count; ++i) {
+                    if(choice != i + 1){
+                        out.write(magazine[i].getMagazineName() + " " + magazine[i].getPages() + "\n");
+                    }
+                }
+                out.close();
             }
         }
     }
-
     public void SortBook() throws FileNotFoundException {
         String filePath = "1.txt";
         File file = new File(filePath);
@@ -241,8 +274,46 @@ public class Console {
                 out.close();
             }
         }
-        else {
-            System.out.println("This function is in progress");
+        if ("2".equals(confirm3)) {
+            //System.out.println("This function is in progress");
+            String filePath = "2.txt";
+            File file = new File(filePath);
+            Scanner scanner = new Scanner(file);
+            String[] words;
+            StringBuilder text = new StringBuilder();
+            while (scanner.hasNextLine()) {
+                text.append(scanner.nextLine());
+                text.append(" ");
+            }
+            words = text.toString().split(" ");
+            int count = words.length / 5;
+            int j = 0;
+            Magazine[] magazine = new Magazine[count];
+            for(int i = 0; i < count; ++i){
+                magazine[i] = new Magazine();
+            }
+            for(int i = 0; i < count; ++i){
+                magazine[i].setMagName(words[j++]);
+                magazine[i].setPages(Integer.parseInt(words[j++]));
+                magazine[i].setBorrowed(words[j++].equals("yes"));
+            }
+            PrintMagazine(magazine,count);
+            System.out.print("Please select the magazine you want to borrow: ");
+            Scanner sc7=new Scanner(System.in);
+            int choice=sc7.nextInt();
+            if(magazine[choice-1].getBorrowed().equals("yes"))
+                System.out.println("The magazine has already borrowed");
+            else {
+                BufferedWriter out = new BufferedWriter(new FileWriter(file));
+                for (int i = 0; i < count; ++i) {
+                    if (choice != choice - 1) {
+                        out.write(magazine[i].getMagazineName() + " " + magazine[i].getPages() + " "+ magazine[i].getBorrowed() + "\n");
+                    } else {
+                        out.write(magazine[i].getMagazineName() + " " + magazine[i].getPages() + " " + "yes" + "\n");
+                    }
+                    out.close();
+                }
+            }
         }
     }
 
@@ -278,15 +349,21 @@ public class Console {
             System.out.println("Do you want to add a magazine?(yes/no)");
             confirm = sc.nextLine();
             if ("yes".equals(confirm)) {
+                System.out.println("Enter the borrowed magazine:");
+                String isBorrowed = sc.nextLine();
+                boolean borrowed = false;
+                if (isBorrowed.equals("yes"))
+                    borrowed = true;
                 System.out.println("Enter the magazine name:");
                 String MagName = sc.nextLine();
                 System.out.println("Enter the magazine pages:");
                 int pages = sc.nextInt();
                 sc.nextLine();
-                Magazine obj = new Magazine(pages, MagName);
+                Magazine obj = new Magazine(pages, MagName,borrowed);
                 System.out.println("Magazine Details");
                 System.out.println("Magazine Name :" + obj.getMagazineName());
                 System.out.println("Pages:" + obj.getPages());
+                System.out.println("Borrowed: " + obj.getBorrowed());
                 WriteInformation(obj);
             }
         }
