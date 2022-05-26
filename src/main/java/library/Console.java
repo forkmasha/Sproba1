@@ -68,6 +68,7 @@ public class Console {
         System.out.println("1.If you want to delete the book enter 1" + "\n" + "2.If you want to delete the magazine enter 2");
         confirm = sc.nextLine();
         if ("1".equals(confirm)) {
+            System.out.println("Do you want to delete the book?(yes/no)");
             String filePath = "1.txt";
             File file = new File(filePath);
             Scanner scanner = new Scanner(file);
