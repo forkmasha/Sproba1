@@ -10,36 +10,37 @@ public class Console {
         int x = 0;
         String s = "";
         Console console = new Console();
-        System.out.println("Welcome to my library");
+        System.out.println("Welcome to my library :)");
         while (true) {
             while (!"5".equals(s)) {
-                System.out.println("1. If you want to add smth please click 1");
-                System.out.println("2. If you want to delete smth please click 2");
-                System.out.println("3. If you want to borrow smth click 3");
-                System.out.println("4. If you want ro sort smth enter 4");
-                System.out.println("5.If you want to Exit please click 5");
+                System.out.println("1.If you want to add something please enter 1");
+                System.out.println("2.If you want to delete something please enter 2");
+                System.out.println("3.If you want to borrow something enter 3");
+                System.out.println("4.If you want to sort books enter 4");
+                System.out.println("5.If you want to Exit please enter 5");
+
                 s = scan.next();
                 try {
                     x = Integer.parseInt(s);
                 } catch (NumberFormatException e) {
-                    System.out.println("You Write smth wrong");
+                    System.out.println("You write something wrong");
                 }
                 switch (x) {
                     case 1:
                         console.addLoop();
                         break;
                     case 2:
-                        console.DeleteBook();
+                        console.DeleteLoop();
                         break;
                     case 3:
-                        console.BorrowBook();
+                        console.BorrowLoop();
                         break;
                     case 4:
                         console.SortBook();
                         break;
                 }
             }
-            System.out.println("Good bye!");
+            System.out.println("Thank you for your time. Good bye!");
             break;
         }
     }
@@ -81,7 +82,7 @@ public class Console {
         out.write(obj.getMagazineName() + " " + obj.getPages() + '\n');
         out.close();
     }
-    private void DeleteBook() throws IOException {
+    private void DeleteLoop() throws IOException {
         String confirm = "";
         Scanner sc = new Scanner(System.in);
         System.out.println("1.If you want to delete the book enter 1" + "\n" + "2.If you want to delete the magazine enter 2");
@@ -155,7 +156,7 @@ public class Console {
                     magazine[i].setPages(Integer.parseInt(words[j++]));
                 }
                 for(int i = 0; i < count; ++i){
-                    System.out.println(i + 1 + ") Magazine name: " + magazine[i].getMagazineName() + ". Pages: " + magazine[i].getPages());
+                    System.out.println(i + 1 + ") Magazine name: " + magazine[i].getMagazineName() + "Pages: " + magazine[i].getPages());
                 }
                 System.out.print("Please select the magazine you want to delete: ");
                 int choice = sc1.nextInt();
@@ -227,7 +228,7 @@ public class Console {
             }
         }
     }
-    public void BorrowBook() throws IOException {
+    public void BorrowLoop() throws IOException {
         String confirm3 = "";
         Scanner sc = new Scanner(System.in);
         System.out.println("1.If you want to borrow the book enter 1" + "\n" + "2.If you want to borrow the magazine enter 2");
@@ -286,7 +287,7 @@ public class Console {
                 text.append(" ");
             }
             words = text.toString().split(" ");
-            int count = words.length / 5;
+            int count = words.length / 3;
             int j = 0;
             Magazine[] magazine = new Magazine[count];
             for(int i = 0; i < count; ++i){

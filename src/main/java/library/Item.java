@@ -18,6 +18,16 @@ public class Item {
         this.pages = pages;
     }
 
+    protected boolean isBorrowed;
+    public String getBorrowed() {
+        if (isBorrowed) {
+            return "yes";
+        }
+        return "no";
+    }
+
+
+
     /*public int setPages(int pages) {
         if (pages < 1) {
             pages = 1;
@@ -25,7 +35,7 @@ public class Item {
     }
     //return (this.pages = pages);
     // } */
-    public static void main(String args[]) {
+   /* public static void main(String args[]) {
 
         List<Book> listBook = booksFromfile();
 
@@ -61,5 +71,6 @@ public class Item {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
+
 }

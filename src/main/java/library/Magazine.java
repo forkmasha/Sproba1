@@ -9,7 +9,6 @@ public class Magazine extends Item {
         this.pages = pages;
         this.isBorrowed = isBorrowed;
     }
-
     public Magazine(Magazine magazine) {
         this.pages = magazine.getPages();
         this.MagName = magazine.getMagazineName();
@@ -20,19 +19,15 @@ public class Magazine extends Item {
         this.pages = 0;
         this.isBorrowed = false;
     }
-
     public String getMagazineName() {
         return MagName;
     }
-
     public void setMagName(String magName) {
         this.MagName = magName;
     }
-
     public int getPages() {
         return pages;
     }
-
     public void setPages(int pages) {
         this.pages = pages;
     }

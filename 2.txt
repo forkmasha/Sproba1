@@ -1,3 +1,0 @@
-misha 12 yes
-mmm 111 yes
-mmio 123
