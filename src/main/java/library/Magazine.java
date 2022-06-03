@@ -1,5 +1,7 @@
 package library;
 
+import static library.Book.DELIMETER;
+
 public class Magazine extends Item {
     private String MagName;
     private boolean isBorrowed;
@@ -39,6 +41,15 @@ public class Magazine extends Item {
             return "yes";
         }
         return "no";
+    }
+
+    @Override
+    public String toFileLine() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(MagName).append(DELIMETER);
+        sb.append(pages).append(DELIMETER);
+        sb.append(isBorrowed ? "yes" : "no");
+        return sb.toString();
     }
 
 }

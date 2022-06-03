@@ -7,8 +7,9 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class Item {
-    protected int pages;
+public abstract class Item {
+    protected String type;
+    protected int pages = 0;
 
     public int getPages() {
         return pages;
@@ -25,6 +26,8 @@ public class Item {
         }
         return "no";
     }
+
+    public abstract String toFileLine();
 
 
 

@@ -57,6 +57,7 @@ public class Console {
             System.out.print(" Pages: " + books[i].getPages() + " Author name: " + books[i].getAuthorName());
             System.out.println(" Publishing Date: " + books[i].getPublishingData());
             System.out.print("Borrowed: ");
+            System.out.println(books[i].getBorrowed());
             if (books[i].getBorrowed().equals("yes"))
                 System.out.println("yes");
             else
@@ -204,7 +205,6 @@ public class Console {
         switch (choice){
             case 1:{
                 Arrays.sort(books, Comparator.comparing(Book::getBookName));
-                PrintBook(books, count);
                 break;
             }
             case 2:{
@@ -218,15 +218,14 @@ public class Console {
                         }
                     }
                 }
-                PrintBook(books, count);
                 break;
             }
             case 3:{
                 Arrays.sort(books, Comparator.comparing(Book::getAuthorName));
-                PrintBook(books, count);
                 break;
             }
         }
+        PrintBook(books, count);
     }
     public void BorrowLoop() throws IOException {
         String confirm3 = "";
@@ -289,28 +288,29 @@ public class Console {
             words = text.toString().split(" ");
             int count = words.length / 3;
             int j = 0;
-            Magazine[] magazine = new Magazine[count];
+            Magazine[] magazines = new Magazine[count];
             for(int i = 0; i < count; ++i){
-                magazine[i] = new Magazine();
+                magazines[i] = new Magazine();
             }
             for(int i = 0; i < count; ++i){
-                magazine[i].setMagName(words[j++]);
-                magazine[i].setPages(Integer.parseInt(words[j++]));
-                magazine[i].setBorrowed(words[j++].equals("yes"));
+                magazines[i].setMagName(words[j++]);
+                magazines[i].setPages(Integer.parseInt(words[j++]));
+                magazines[i].setBorrowed(words[j++].equals("yes"));
             }
-            PrintMagazine(magazine,count);
+            PrintMagazine(magazines,count);
             System.out.print("Please select the magazine you want to borrow: ");
+
             Scanner sc7=new Scanner(System.in);
             int choice=sc7.nextInt();
-            if(magazine[choice-1].getBorrowed().equals("yes"))
+            if(magazines[choice-1].getBorrowed().equals("yes"))
                 System.out.println("The magazine has already borrowed");
             else {
                 BufferedWriter out = new BufferedWriter(new FileWriter(file));
                 for (int i = 0; i < count; ++i) {
-                    if (choice != choice - 1) {
-                        out.write(magazine[i].getMagazineName() + " " + magazine[i].getPages() + " "+ magazine[i].getBorrowed() + "\n");
+                    if (i != choice - 1) {
+                        out.write(magazines[i].getMagazineName() + " " + magazines[i].getPages() + " "+ magazines[i].getBorrowed() + "\n");
                     } else {
-                        out.write(magazine[i].getMagazineName() + " " + magazine[i].getPages() + " " + "yes" + "\n");
+                        out.write(magazines[i].getMagazineName() + " " + magazines[i].getPages() + " " + "yes" + "\n");
                     }
                     out.close();
                 }
